@@ -3,8 +3,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 
+// erzeugt: Canvas Objekt als Zeichengrundlage
 
-public class DrawObject extends Canvas implements MouseListener {
+public class DrawObject extends Canvas implements MouseListener { 
 
 	private float _x, _y; 
 	private int _clickCounter;
@@ -30,8 +31,8 @@ public class DrawObject extends Canvas implements MouseListener {
 		g2d.setStroke(new BasicStroke(2.5F));
 		Ellipse2D ellipse2D = new Ellipse2D.Float(
 				_x,_y,
-				50,50)
-				;
+				50,50
+				);
 		
 		g2d.draw(ellipse2D);	
 		if (_clickCounter > 1) {
