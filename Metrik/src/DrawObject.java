@@ -18,6 +18,7 @@ public class DrawObject extends Canvas implements MouseListener {
 		setBackground(Color.lightGray);
 		addMouseListener(this);
 	    setVisible(true); 
+	    //Test initial
 	} // Constructor
 	
 		
