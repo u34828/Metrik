@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 public class MainMenuBar extends MenuBar implements ActionListener{
 	
 	private Menu _menu;
-	private MenuItem _color1, _color2, _color3;
+	private MenuItem _color1, _color2, _color3, _color4;
 	private final Canvas _drawObject;
 	
 	public MainMenuBar(Canvas drawObject) {
@@ -22,6 +22,9 @@ public class MainMenuBar extends MenuBar implements ActionListener{
 		_color3 = new MenuItem("Farbe: Blau");
 		_color3.addActionListener(this);
 		_menu.add(_color3);
+		_color4 = new MenuItem("Grundeinstellung");
+		_color4.addActionListener(this);
+		_menu.add(_color4);
 			
 		add(_menu);
 		}
@@ -35,6 +38,8 @@ public class MainMenuBar extends MenuBar implements ActionListener{
 			this._drawObject.setBackground(Color.yellow);
 		}else if (e.getSource() == _color3) {
 			this._drawObject.setBackground(Color.blue);
-		}
+		}else if (e.getSource() == _color4) {
+			this._drawObject.setBackground(Color.lightGray);
+		}	
 	}
 }
