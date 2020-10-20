@@ -9,6 +9,12 @@ public class DrawObject extends Canvas implements MouseListener {
 	private float _x, _y; 
 	private int _clickCounter;
 	private int  _sizeX, _sizeY;
+	
+	float _x1;
+	float _x2;
+	float _y1;
+	float _y2;
+	
 	public DrawObject(int _sizeX, int _sizeY) {
 		_x = _y;
 		_clickCounter = 0;
@@ -18,10 +24,8 @@ public class DrawObject extends Canvas implements MouseListener {
 		setBackground(Color.lightGray);
 		addMouseListener(this);
 	    setVisible(true); 
-	    //Test initial
 	} // Constructor
-	
-		
+			
 	@Override
 	public void paint(Graphics g) {
 		if (_x == 0 && _y == 0) return;
@@ -31,24 +35,29 @@ public class DrawObject extends Canvas implements MouseListener {
 				_x,_y,
 				50,50
 				);
-		
 		g2d.draw(ellipse2D);
 		
 		if (_clickCounter == 0) {
 			g2d.drawString ("Koordinate Kreis 1 - X: "+_x, _x+50, _y);
+			_x1 = _x;
+			_y1 = _y;
 			g2d.drawString ("Koordinate Kreis 1 - Y: "+_y, _x+50, _y+20);
 		}
 		
 		if (_clickCounter == 1) {
 			g2d.drawString ("Koordinate Kreis 2 - X: "+_x, _x+50, _y);
+			_x2 = _x;
+			_y2 = _y;
 			g2d.drawString ("Koordinate Kreis 2 - Y: "+_y, _x+50, _y+20);
+			g.setColor(Color.blue);   
+	        g.drawLine((int)_x1+25 , (int)_y1+25, (int)_x2+25, (int)_y2+25); 
 		}
+ 
 		if (_clickCounter > 1) {
 			g2d.clearRect(0, 0, _sizeX, _sizeY);
 			_clickCounter = -1;
 		}
 	}
-	
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
