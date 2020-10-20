@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 
 // erzeugt: Canvas Objekt als Zeichengrundlage
 
@@ -9,6 +10,11 @@ public class DrawObject extends Canvas implements MouseListener {
 	private float _x, _y; 
 	private int _clickCounter;
 	private int  _sizeX, _sizeY;
+	float circle1x = 0;
+	float circle1y = 0;
+	float circle2x = 0;
+	float circle2y = 0;
+	
 	public DrawObject(int _sizeX, int _sizeY) {
 		_x = _y;
 		_clickCounter = 0;
@@ -37,11 +43,21 @@ public class DrawObject extends Canvas implements MouseListener {
 		if (_clickCounter == 0) {
 			g2d.drawString ("Koordinate Kreis 1 - X: "+_x, _x+50, _y);
 			g2d.drawString ("Koordinate Kreis 1 - Y: "+_y, _x+50, _y+20);
-		}
+			circle1x = _x;
+			circle1y = _y;
+		} 
 		
 		if (_clickCounter == 1) {
 			g2d.drawString ("Koordinate Kreis 2 - X: "+_x, _x+50, _y);
 			g2d.drawString ("Koordinate Kreis 2 - Y: "+_y, _x+50, _y+20);
+			circle2x = _x;
+			circle2y = _y;	
+
+			float distance = (float) Math.sqrt(((circle2y-circle1y)*(circle2y-circle1y))+((circle2x-circle1x)*(circle2x-circle1x)));		
+			distance = (float) (distance + 0.005);
+			distance = (int)(distance*100);
+			distance = distance / 100;
+			g2d.drawString("Distanz zwischen den Kreisen: " + distance, 10, 30);
 		}
 		if (_clickCounter > 1) {
 			g2d.clearRect(0, 0, _sizeX, _sizeY);
