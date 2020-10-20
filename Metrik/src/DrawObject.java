@@ -9,31 +9,22 @@ public class DrawObject extends Canvas implements MouseListener {
 
 	private float _x, _y; 
 	private int _clickCounter;
-	private int  _sizeX, _sizeY;
-//<<<<<<< HEAD
-//<<<<<<< HEAD
-//	String uebergang = MainWindow.objektGroeﬂe;
-	String g = "0";
-	float durchmesserKreis=Float.parseFloat(g);
+	private int _sizeX, _sizeY;
 	
-	float f = 50.0F;
+	// Variablen f¸r Grˆﬂenanpassung Objekte
+	String objectSize;
 	
-	
-	
-	
-//=======
+	// Variablen f¸r Distanzberechnung
 	float circle1x = 0;
 	float circle1y = 0;
 	float circle2x = 0;
 	float circle2y = 0;
-//>>>>>>> refs/remotes/origin/Version_1.2.1_-_distance_between_two_circles
-//=======
-	
-	float _x1;
-	float _x2;
-	float _y1;
-	float _y2;
-//>>>>>>> refs/remotes/origin/Version_1.2.2_-_line_between_two_circles
+
+	// Variablen f¸r Linie zwischen den Kreisen
+	private float _x1;
+	private float _x2;
+	private float _y1;
+	private float _y2;
 	
 	public DrawObject(int _sizeX, int _sizeY) {
 		_x = 0;
@@ -41,14 +32,11 @@ public class DrawObject extends Canvas implements MouseListener {
 		_clickCounter = 0;
 		this._sizeX = _sizeX;
 		this._sizeY = _sizeY;
+		this.objectSize = MainWindow.getObjektGroeﬂe();
 		setSize(_sizeX,_sizeX);
 		setBackground(Color.lightGray);
 		addMouseListener(this);
 	    setVisible(true); 
-//<<<<<<< HEAD
-
-//=======
-//>>>>>>> refs/remotes/origin/Version_1.2.2_-_line_between_two_circles
 	} // Constructor
 			
 	@Override
@@ -56,61 +44,43 @@ public class DrawObject extends Canvas implements MouseListener {
 		if (_x == 0 && _y == 0) return;
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setStroke(new BasicStroke(2.5F));
-
-		System.out.println(durchmesserKreis);
-		if (durchmesserKreis == 0.0F) {
-			Ellipse2D ellipse2D = new Ellipse2D.Float(
-					_x,_y,
-					f,f
-					);
-			
-			g2d.draw(ellipse2D);
-			
-		}
-		else {
+		objectSize = MainWindow.getObjektGroeﬂe();
+		float diameter = Float.parseFloat(objectSize);
 		Ellipse2D ellipse2D = new Ellipse2D.Float(
 				_x,_y,
-				durchmesserKreis,durchmesserKreis
+				diameter,diameter
 				);
 		g2d.draw(ellipse2D);
-		}
+	
+		// Koordinaten anzeigen
 		if (_clickCounter == 0) {
-			g2d.drawString ("Koordinate Kreis 1 - X: "+_x, _x+50, _y);
+			g2d.drawString ("Koordinate Kreis 1 - X: "+_x, _x+diameter, _y);
 			_x1 = _x;
 			_y1 = _y;
-			g2d.drawString ("Koordinate Kreis 1 - Y: "+_y, _x+50, _y+20);
+			g2d.drawString ("Koordinate Kreis 1 - Y: "+_y, _x+diameter, _y+20);
 			circle1x = _x;
 			circle1y = _y;
-		} 
-		
+		} 		
 		if (_clickCounter == 1) {
-			g2d.drawString ("Koordinate Kreis 2 - X: "+_x, _x+50, _y);
+			g2d.drawString ("Koordinate Kreis 2 - X: "+_x, _x+diameter, _y);
 			_x2 = _x;
 			_y2 = _y;
-			g2d.drawString ("Koordinate Kreis 2 - Y: "+_y, _x+50, _y+20);
-//<<<<<<< HEAD
-//<<<<<<< HEAD
-
-//=======
+			g2d.drawString ("Koordinate Kreis 2 - Y: "+_y, _x+diameter, _y+20);
 			circle2x = _x;
 			circle2y = _y;	
 
+			//Distance berechnen
 			float distance = (float) Math.sqrt(((circle2y-circle1y)*(circle2y-circle1y))+((circle2x-circle1x)*(circle2x-circle1x)));		
 			distance = (float) (distance + 0.005);
 			distance = (int)(distance*100);
 			distance = distance / 100;
 			g2d.drawString("Distanz zwischen den Kreisen: " + distance, 10, 30);
-//>>>>>>> refs/remotes/origin/Version_1.2.1_-_distance_between_two_circles
-//=======
+
+			// Linie zwischen 2 Kreisen
 			g.setColor(Color.blue);   
-	        g.drawLine((int)_x1+25 , (int)_y1+25, (int)_x2+25, (int)_y2+25); 
-//>>>>>>> refs/remotes/origin/Version_1.2.2_-_line_between_two_circles
+	        g.drawLine((int)_x1+(int)diameter/2 , (int)_y1+(int)diameter/2, (int)_x2+(int)diameter/2, (int)_y2+(int)diameter/2); 
 		}
-//<<<<<<< HEAD
-		
-//=======
- 
-//>>>>>>> refs/remotes/origin/Version_1.2.2_-_line_between_two_circles
+
 		if (_clickCounter > 1) {
 			g2d.clearRect(0, 0, _sizeX, _sizeY);
 			_clickCounter = -1;
@@ -122,9 +92,6 @@ public class DrawObject extends Canvas implements MouseListener {
 		_x = e.getX();
 		_y = e.getY();	
         paint(getGraphics());
-	    System.out.println("test ob es hier ankommt: "+MainWindow.objektGroeﬂe);
-	    g = MainWindow.objektGroeﬂe;
-
         _clickCounter++; 
 	}
 
